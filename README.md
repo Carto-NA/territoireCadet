@@ -39,6 +39,10 @@ grant usage on schema referentiel to viewer_all_schema_ro;
 grant select on all tables in schema referentiel to viewer_all_schema_ro;
 alter default privileges in schema referentiel grant select on tables to viewer_all_schema_ro;
 
+grant usage on schema ref_geo to viewer_all_schema_ro;
+grant select on all tables in schema ref_geo to viewer_all_schema_ro;
+alter default privileges in schema ref_geo grant select on tables to viewer_all_schema_ro;
+
 grant usage on schema agr to agriculture_ro;
 grant select on all tables in schema agr to agriculture_ro;
 alter default privileges in schema agr grant select on tables to agriculture_ro;
@@ -78,6 +82,7 @@ grant economie_ro to carto_eco;
 grant environnement_ro to carto_env;
 grant infrastructure_ro to carto_inf;
 
+grant viewer_all_schema_ro to ref_geo;
 grant viewer_all_schema_ro to carto_cul;
 grant viewer_all_schema_ro to carto_eco;
 grant viewer_all_schema_ro to carto_env;
@@ -92,3 +97,52 @@ revoke viewer_all_schema_ro from inf;
 
 revoke viewer_all_schema_ro from carto_agr;
 revoke viewer_all_schema_ro from carto_env;
+
+
+====
+Créer une vue de base de données
+====
+
+* Connexion à la géodatabase en entrée
+\\fileruser2\Users\vincentto\Mes documents\ArcGIS\Projects\Modele_AdminDonnees\ref_geo.sde
+* Nom de la vue en sortie
+ign_ade_cog_departement_na
+* Définition de la vue
+SELECT objectid, insee_dep as numdep, insee_reg as numreg, chf_dep, nom_dep_m as nomdep_m, nom_dep as nomdep, shape FROM referentiel.ign_ade_cog_departement_carto where insee_reg = '75' 
+
+* Connexion à la géodatabase en entrée
+\\fileruser2\Users\vincentto\Mes documents\ArcGIS\Projects\Modele_AdminDonnees\ref_geo.sde
+* Nom de la vue en sortie
+ign_ade_cog_departement_fr
+* Définition de la vue
+SELECT objectid, insee_dep as numdep, insee_reg as numreg, chf_dep, nom_dep_m as nomdep_m, nom_dep as nomdep, shape FROM referentiel.ign_ade_cog_departement_carto
+====
+
+
+
+--
+create view ref_geo.ign_ade_cog_departement_fr AS
+SELECT objectid, insee_dep as numdep, insee_reg as numreg, chf_dep, nom_dep_m as nomdep_m, nom_dep as nomdep, shape
+FROM referentiel.ign_ade_cog_departement_carto;
+--
+create view ref_geo.ign_ade_cog_departement_na AS
+SELECT objectid, insee_dep as numdep, insee_reg as numreg, chf_dep, nom_dep_m as nomdep_m, nom_dep as nomdep, shape
+FROM referentiel.ign_ade_cog_departement_carto where insee_reg = '75';
+
+--
+create view ref_geo.ign_ade_cog_commune_fr AS
+SELECT objectid, statut, insee_com as numcom, insee_arr as numarr, insee_dep as numdep, insee_reg as numreg, code_epci as numepci,
+nom_com_m as nomcom_m, nom_com as nomcom, population, "type" as typeepci,  shape
+FROM referentiel.ign_ade_cog_commune_carto;
+--
+create view ref_geo.ign_ade_cog_commune_na AS
+SELECT objectid, statut, insee_com as numcom, insee_arr as numarr, insee_dep as numdep, insee_reg as numreg, code_epci as numepci,
+nom_com_m as nomcom_m, nom_com as nomcom, population, "type" as typeepci,  shape
+FROM referentiel.ign_ade_cog_commune_carto where insee_reg = '75';
+
+grant usage on schema ref_geo to viewer_all_schema_ro;
+grant select on all tables in schema ref_geo to viewer_all_schema_ro;
+alter default privileges in schema ref_geo grant select on tables to viewer_all_schema_ro;
+
+grant viewer_all_schema_ro to ref_geo;
+
