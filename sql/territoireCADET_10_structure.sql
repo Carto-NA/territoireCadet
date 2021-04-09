@@ -60,5 +60,8 @@ DROP TRIGGER IF EXISTS create_ign_ade_territoire_cadet ON referentiel.na_territo
 CREATE TRIGGER create_na_territoire_cadet
 AFTER INSERT OR UPDATE OR DELETE ON referentiel.na_territoire_cadet
 FOR EACH ROW
-  EXECUTE PROCEDURE referentiel.create_na_territoire_cadet();
+  EXECUTE PROCEDURE referentiel.create_ign_ade_territoire_cadet();
+
+
+DROP TRIGGER create_ign_ade_territoire_cadet ON referentiel.na_territoire_cadet;
 
