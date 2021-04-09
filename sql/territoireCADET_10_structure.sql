@@ -36,6 +36,8 @@ CREATE UNIQUE INDEX r636_sde_rowid_uk ON referentiel.ign_ade_territoire_cadet US
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
 -- Trigger
+
+-- Mise à jour du zonage CADET
 CREATE OR REPLACE FUNCTION referentiel.create_ign_ade_territoire_cadet() RETURNS TRIGGER AS $create_ign_ade_territoire_cadet$
 BEGIN
 	-- On vide la table
@@ -59,3 +61,4 @@ CREATE TRIGGER create_na_territoire_cadet
 AFTER INSERT OR UPDATE OR DELETE ON referentiel.na_territoire_cadet
 FOR EACH ROW
   EXECUTE PROCEDURE referentiel.create_na_territoire_cadet();
+
