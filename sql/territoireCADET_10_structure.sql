@@ -1,6 +1,6 @@
 /* TERRITOIRE CADET V1.0 */
 /* Creation de la structure des données (tables, séquences, triggers,...) */
-/* territoire_cadet_10_structure.sql */
+/* territoireCADET_10_structure.sql */
 /* PostgreSQL/PostGIS */
 /* Conseil régional Nouvelle-Aquitaine - https://cartographie.nouvelle-aquitaine.fr/ */
 /* Auteur : Tony VINCENT */
