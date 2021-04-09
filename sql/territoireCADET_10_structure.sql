@@ -41,8 +41,8 @@ BEGIN
 	-- On vide la table
 	TRUNCATE TABLE referentiel.ign_ade_territoire_cadet; 
 	-- 
-	INSERT INTO referentiel.ign_ade_territoire_cadet(code_cadet, nom_cadet, shape)    
-		SELECT a.code_cadet, a.nom_cadet, ST_Union(b.shape) AS shape
+	INSERT INTO referentiel.ign_ade_territoire_cadet(objectid, code_cadet, arcgis_referentiel_na_territo_1, shape)    
+		SELECT next_rowid('referentiel','ign_ade_territoire_cadet'), a.code_cadet, a.nom_cadet, ST_Union(b.shape) AS shape
 		FROM 
     		referentiel.ign_ade_epci b
     	INNER JOIN
